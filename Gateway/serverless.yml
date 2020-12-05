@@ -1,0 +1,13 @@
+service: aws-nodejs-insersqs
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  inserSqs:
+    handler: insert.submit
+    events:
+      - http:
+          path: insertsqs
+          method: get
