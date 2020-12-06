@@ -3,11 +3,31 @@ service: aws-nodejs-insersqs
 provider:
   name: aws
   runtime: nodejs10.x
+  tracing:
+    apiGateway: true
+    lambda: true
+  iamRoleStatements:
+    - Effect: "Allow" # xray permissions (required)
+      Action:
+       - "xray:PutTraceSegments"
+       - "xray:PutTelemetryRecords"
+       - sqs:ChangeMessageVisibility
+       - sqs:DeleteMessage
+       - sqs:ReceiveMessage
+       - sqs:SendMessage
+      Resource:
+       - "*"
 
 functions:
-  inserSqs:
-    handler: insert.submit
+  insertSqs:
+    handler: src/insert.handler
     events:
       - http:
           path: insertsqs
+          method: post
+  printSqs:
+    handler: src/receive.handler
+    events:
+      - http:
+          path: printsqs
           method: get
