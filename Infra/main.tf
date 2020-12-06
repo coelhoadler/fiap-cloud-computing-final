@@ -3,11 +3,8 @@ provider "aws" {
 }
 
 resource "aws_sqs_queue" "terraform_queue" {
-    name = "${format("my-sqs-%03d", count.index + 1)}"
-    
-    count = var.quantidade_filas
-    
+    name = "SQS-principal-${terraform.workspace}"
     tags = {
-        Name = "${format("my-sqs-%03d", count.index + 1)}"
+        Name = "SQS-principal-${terraform.workspace}"
     }
 }
