@@ -16,7 +16,7 @@ resource "aws_sqs_queue" "terraform_queue" {
     }
     redrive_policy = jsonencode({
         deadLetterTargetArn: aws_sqs_queue.terraform_queue_deadletter.arn,
-        maxReceiveCount = 4
+        maxReceiveCount = 1
     })
 }
 
@@ -28,11 +28,11 @@ resource "aws_sns_topic" "deadletters_notifyer" {
 }
 
 resource "aws_s3_bucket" "bucket_s3" {
-  bucket = "S3-remote-state-${terraform.workspace}"
+  bucket = "aoj75-s3-remote-state-${terraform.workspace}"
   acl    = "private"
 
   tags = {
-    Name        = "S3-remote-state-${terraform.workspace}"
+    Name        = "aoj75-s3-remote-state-${terraform.workspace}"
     Environment = "admin"
   }
 }

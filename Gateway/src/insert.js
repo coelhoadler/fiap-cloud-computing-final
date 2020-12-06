@@ -8,15 +8,12 @@ exports.handler = async (event, context, callback) => {
   
   var sqsMessageId = null;
   
-  var params = {
-    MessageBody: event.body,
-    QueueUrl: queueUrl
-  };
+  var params = { MessageBody: event.body, QueueUrl: queueUrl };
 
   await sqs
-  .sendMessage(params, (err, data) => console.log(data.MessageId ? data.MessageId : err))
-  .promise()
-  .then((result)=> sqsMessageId = result.MessageId);
+    .sendMessage(params, (err, data) => console.log(data.MessageId ? data.MessageId : err))
+    .promise()
+    .then((result)=> sqsMessageId = result.MessageId);
   
   const response = {
     statusCode: 200,
@@ -29,5 +26,4 @@ exports.handler = async (event, context, callback) => {
   };
   
   callback(null, response);
-  
 };

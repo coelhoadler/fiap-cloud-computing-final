@@ -1,4 +1,4 @@
-service: aws-nodejs-insersqs
+service: aws-nodejs-sqs
 
 provider:
   name: aws
@@ -9,8 +9,8 @@ provider:
   iamRoleStatements:
     - Effect: "Allow" # xray permissions (required)
       Action:
-       - "xray:PutTraceSegments"
-       - "xray:PutTelemetryRecords"
+       - xray:PutTraceSegments
+       - xray:PutTelemetryRecords
        - sqs:ChangeMessageVisibility
        - sqs:DeleteMessage
        - sqs:ReceiveMessage
