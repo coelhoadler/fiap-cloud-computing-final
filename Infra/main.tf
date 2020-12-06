@@ -19,3 +19,10 @@ resource "aws_sqs_queue" "terraform_queue" {
         maxReceiveCount = 4
     })
 }
+
+resource "aws_sns_topic" "deadletters_notifyer" {
+    name = "SNS-deadletters-notifyer-${terraform.workspace}"
+    tags = {
+        Name = "SNS-deadletters-notifyer-${terraform.workspace}"
+    }
+}
