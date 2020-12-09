@@ -28,11 +28,11 @@ resource "aws_sns_topic" "deadletters_notifyer" {
 }
 
 resource "aws_s3_bucket" "bucket_s3" {
-  bucket = "aoj75-s3-remote-state-${terraform.workspace}"
-  acl    = "private"
+  bucket = "s3-remotely-state-75aoj"
+  acl = "private"
 
   tags = {
-    Name        = "aoj75-s3-remote-state-${terraform.workspace}"
+    Name = "s3-remotely-state-75aoj"
     Environment = "admin"
   }
 }
