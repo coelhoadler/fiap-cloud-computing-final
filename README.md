@@ -34,8 +34,8 @@ O terraform deve ter os seguinte outputs:
   * [x] ARN da fila sqs DLQ
   * [x] URL da fila sqs principal
   * [x] ARN do SNS criado
-  * [] Deve ser utlizado workspaces para fazer deploy do ambiente de produção[prod] e desenvolvimento[dev]
-  * [] O SNS deve ter uma subscrição de um email(ou vários) para receber o que chega na fila DLQ. Essa
+  * [ ] Deve ser utlizado workspaces para fazer deploy do ambiente de produção[prod] e desenvolvimento[dev]
+  * [ ] O SNS deve ter uma subscrição de um email(ou vários) para receber o que chega na fila DLQ. Essa
 subscrição pode ser manual ou no terraform.
 
 ## Infra do Serverless
@@ -44,11 +44,11 @@ subscrição pode ser manual ou no terraform.
 
 Crie na sua linguagem preferido e suportada pelo lambda as 3 funções descritas no desenho
 assim como o api gateway.
-  * [] A primeira função responde um uma API no path /inseresqs e insere o payload no SQS.
-  * [] A segunda função deve receber lotes de uma mensagem do SQS principal e imprimir o
+  * [ ] A primeira função responde um uma API no path /inseresqs e insere o payload no SQS.
+  * [ ] A segunda função deve receber lotes de uma mensagem do SQS principal e imprimir o
 conteúdo.
-  * [] A terceira função esta conectada a fila SQS. Recebe lotes de uma mensagem e publicar no
+  * [ ] A terceira função esta conectada a fila SQS. Recebe lotes de uma mensagem e publicar no
 tópico SNS criado.
-  * [] Deve ser utlizado o mesmo código e configuração serverless yml para fazer deploy no 2
+  * [ ] Deve ser utlizado o mesmo código e configuração serverless yml para fazer deploy no 2
 ambientes e não pode dar conflito de nomes ou apontar para os recursos errados.
-  * [] Adicione X-Ray aos lambdas e api gateway.
+  * [ ] Adicione X-Ray aos lambdas e api gateway.
