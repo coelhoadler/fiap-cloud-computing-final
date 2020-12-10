@@ -1,4 +1,4 @@
-# Trabalho acadêmico FIAP 75aoj 2020
+# Trabalho acadêmico FIAP 75aoj
 
 Este é o trabalho final de CLOUD COMPUTING & SRE, lecionado pelo professor Rafael Barbosa.
 
