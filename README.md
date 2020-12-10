@@ -21,13 +21,13 @@ Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init`
 
 ### Requisitos
 
-[x] Os 2 SQS e o SNS serão criados com terraform. Assim como a regra de DLQ que deve ser de
+* [x] Os 2 SQS e o SNS serão criados com terraform. Assim como a regra de DLQ que deve ser de
 apenas uma tentativa na fila principal.
 
-[x] O nome dos recursos deve conter o ambiente o qual pertence. Você fará isso concatenando o
+* [x] O nome dos recursos deve conter o ambiente o qual pertence. Você fará isso concatenando o
 nome do workspace no qual foi aplicado. EX: SQS-princial-dev
 
-[x] Deve ser configurado um estado remoto para o bucket do s3 utilizado em aula (Construímos um novo bucket caso ele não exista).
+* [x] Deve ser configurado um estado remoto para o bucket do s3 utilizado em aula (Construímos um novo bucket caso ele não exista).
 
 O terraform deve ter os seguinte outputs:
   * [x] ARN da fila sqs principal
