@@ -26,13 +26,3 @@ resource "aws_sns_topic" "deadletters_notifyer" {
         Name = "SNS-deadletters-notifyer-${terraform.workspace}"
     }
 }
-
-resource "aws_s3_bucket" "bucket_s3" {
-  bucket = "s3-remotely-state-75aoj"
-  acl = "private"
-
-  tags = {
-    Name = "s3-remotely-state-75aoj"
-    Environment = "admin"
-  }
-}
