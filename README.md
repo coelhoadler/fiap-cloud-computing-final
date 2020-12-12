@@ -19,6 +19,30 @@ Navegue pelo terminal até a pasta `S3` e execute os comando `terraform init` e 
 
 Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init` e `terraform apply -auto-approve`.
 
+### Construindo o Serverless
+
+Navegue pelo terminal até a pasta `Gateway` e 
+Configure no arquivo serverless.yml nas sessões enviroment os outputs gerados pelo terraform
+  * functions > insert > enviroment > sqsUrl (url do sqs default)
+  * functions > receiver > enviroment > sqsUrl (url do sqs dlq)
+  * functions > receiver > events > sqs > arn (arn do sqs default)
+  * functions > publish > enviroment > snsArn (arn do sns) 
+  * functions > publish > events > sqs > arn (arn do sqs dlq)
+
+execute o commando `sls deploy` 
+
+### Postando uma mensagem no lambda insert
+
+Com a url retornada após o deploy
+Em qualquer ferramenta de requisições HTTP utilize [POST] em https://{url}/insertsqs
+Mande um body em json 
+
+### Postando uma mensagem no lambda para ir ao DLQ
+
+No serviço receiver, force uma exception
+A mesagem que seria lida e excluída será enviada para a DLQ.
+Após modificar o arquivo execute `sls deploy`
+
 ### Requisitos
 
 * [x] Os 2 SQS e o SNS serão criados com terraform. Assim como a regra de DLQ que deve ser de
@@ -44,11 +68,12 @@ subscrição pode ser manual ou no terraform.
 
 Crie na sua linguagem preferido e suportada pelo lambda as 3 funções descritas no desenho
 assim como o api gateway.
-  * [ ] A primeira função responde um uma API no path /inseresqs e insere o payload no SQS.
-  * [ ] A segunda função deve receber lotes de uma mensagem do SQS principal e imprimir o
+  * [x] A primeira função responde um uma API no path /inseresqs e insere o payload no SQS. (Verificar! está fazendo dois payloads. Ainda não analisei)
+  * [x] A segunda função deve receber lotes de uma mensagem do SQS principal e imprimir o
 conteúdo.
-  * [ ] A terceira função esta conectada a fila SQS. Recebe lotes de uma mensagem e publicar no
+  * [x] A terceira função esta conectada a fila SQS. Recebe lotes de uma mensagem e publicar no
+    * Essa função está dando erro de Permissão devido a licença "educate"
 tópico SNS criado.
-  * [ ] Deve ser utlizado o mesmo código e configuração serverless yml para fazer deploy no 2
+  * [ ] Deve ser utlizado o mesmo código e configraução serverless yml para fazer deploy no 2
 ambientes e não pode dar conflito de nomes ou apontar para os recursos errados.
-  * [ ] Adicione X-Ray aos lambdas e api gateway.
+  * [x] Adicione X-Ray aos lambdas e api gateway.

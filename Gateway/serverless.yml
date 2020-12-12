@@ -19,15 +19,36 @@ provider:
        - "*"
 
 functions:
-  insertSqs:
+  insert:
     handler: src/insert.handler
+    environment:
+      #URL DA FILA PRINCIPAL
+      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/085297972612/SQS-principal-default'
     events:
       - http:
           path: insertsqs
           method: post
-  printSqs:
+          
+  receiver:
     handler: src/receive.handler
+    environment:
+      #URL DA FILA DLQ
+      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/085297972612/SQS-principal-default-dlq'
     events:
-      - http:
-          path: printsqs
-          method: get
+      - sqs:
+          #ARN DA FILA PRINCIPAL
+          arn: arn:aws:sqs:us-east-1:085297972612:SQS-principal-default 
+          batchSize: 10
+          maximumBatchingWindow: 60
+          
+  publisher:
+    handler: src/publish.handler
+    environment:
+      #ARN DO SNS
+      snsArn: 'arn:aws:sns:us-east-1:085297972612:SNS-deadletters-notifyer-default' 
+    events:
+      - sqs:
+          #ARN DA FILA DLQ
+          arn: arn:aws:sqs:us-east-1:085297972612:SQS-principal-default-dlq 
+          batchSize: 10
+          maximumBatchingWindow: 60

@@ -6,6 +6,10 @@ output "sqs_principal_url" {
   value = "${aws_sqs_queue.terraform_queue.id}"
 }
 
+output "sqs_dlq_url" {
+  value = "${aws_sqs_queue.terraform_queue_deadletter.id}"
+}
+
 output "sqs_principal_dlq_arn" {
   value = "${aws_sqs_queue.terraform_queue_deadletter.arn}"
 }
