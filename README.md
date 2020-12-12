@@ -21,7 +21,7 @@ Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init`
 
 ### Construindo o Serverless
 
-Navegue pelo terminal até a pasta `Serveless` e 
+Navegue pelo terminal até a pasta `Serverless` e 
 Configure no arquivo serverless.yml nas sessões enviroment os outputs gerados pelo terraform
   * functions > insert > enviroment > sqsUrl (url do sqs default)
   * functions > receiver > enviroment > sqsUrl (url do sqs dlq)
@@ -75,6 +75,6 @@ conteúdo.
   * [x] A terceira função esta conectada a fila SQS. Recebe lotes de uma mensagem e publicar no
     * Essa função está dando erro de Permissão devido a licença "educate"
 tópico SNS criado.
-  * [ ] Deve ser utlizado o mesmo código e configraução serverless yml para fazer deploy no 2
+  * [ ] Deve ser utlizado o mesmo código e configuração serverless yml para fazer deploy no 2
 ambientes e não pode dar conflito de nomes ou apontar para os recursos errados.
   * [x] Adicione X-Ray aos lambdas e api gateway.
