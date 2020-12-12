@@ -2,6 +2,11 @@ provider "aws" {
   region = var.aws_region
 }
 
+module "localfile" {
+  source = "./modules/file"
+  filename = var.filename
+}
+
 resource "aws_sqs_queue" "terraform_queue_deadletter" {
     name = "SQS-principal-${terraform.workspace}-dlq"
     tags = {

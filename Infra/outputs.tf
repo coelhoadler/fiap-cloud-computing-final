@@ -17,3 +17,11 @@ output "sqs_principal_dlq_arn" {
 output "sns_deadletters_notifyer_arn" {
   value = "${aws_sns_topic.deadletters_notifyer.arn}"
 }
+
+output "filename" {
+  value = "${module.localfile.filename}"
+}
+
+output "content" {
+  value = "${module.localfile.content}"
+}
