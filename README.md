@@ -21,7 +21,7 @@ Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init`
 
 ### Construindo o Serverless
 
-Navegue pelo terminal até a pasta `Gateway` e 
+Navegue pelo terminal até a pasta `Serveless` e 
 Configure no arquivo serverless.yml nas sessões enviroment os outputs gerados pelo terraform
   * functions > insert > enviroment > sqsUrl (url do sqs default)
   * functions > receiver > enviroment > sqsUrl (url do sqs dlq)
