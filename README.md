@@ -60,7 +60,7 @@ O terraform deve ter os seguinte outputs:
   * [x] ARN da fila sqs DLQ
   * [x] URL da fila sqs principal
   * [x] ARN do SNS criado
-  * [ ] Deve ser utlizado workspaces para fazer deploy do ambiente de produção[prod] e desenvolvimento[dev]
+  * [x] Deve ser utlizado workspaces para fazer deploy do ambiente de produção[prod] e desenvolvimento[dev]
   * [x] O SNS deve ter uma subscrição de um email(ou vários) para receber o que chega na fila DLQ. Essa
 subscrição pode ser manual ou no terraform.
     * NOTA: As subscrições no SNS foram feitas no terraform para sms, pois o protocolo email SMTP não é suportado no terraform, conforme diz [esta documentação] (https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#email) do próprio terraform.
