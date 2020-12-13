@@ -9,13 +9,13 @@ Este é o trabalho final de CLOUD COMPUTING & SRE, lecionado pelo professor Rafa
 * 337317 – Kelvin Marques
 * 338111 – Michel Santana
 
-## Infra do Terraform
+## Rodando a Infra
 
 ### Construindo o bucket back end
 
 Navegue pelo terminal até a pasta `S3` e execute os comando `terraform init` e `terraform apply -auto-approve`.
 
-### Construindo a Infra
+### Construindo a Infra do Terraform
 
 Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init` e `terraform apply -auto-approve`.
 
@@ -43,7 +43,9 @@ No serviço receiver, force uma exception
 A mesagem que seria lida e excluída será enviada para a DLQ.
 Após modificar o arquivo execute `sls deploy`
 
-### Requisitos
+## Requisitos do projeto
+
+### Infra do Terraform
 
 * [x] Os 2 SQS e o SNS serão criados com terraform. Assim como a regra de DLQ que deve ser de
 apenas uma tentativa na fila principal.
@@ -63,9 +65,7 @@ O terraform deve ter os seguinte outputs:
 subscrição pode ser manual ou no terraform.
     * NOTA: As subscrições no SNS foram feitas no terraform para sms, pois o protocolo email SMTP não é suportado no terraform, conforme diz [esta documentação] (https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#email) do próprio terraform.
 
-## Infra do Serverless
-
-### Requisitos
+### Infra do Serverless
 
 Crie na sua linguagem preferido e suportada pelo lambda as 3 funções descritas no desenho
 assim como o api gateway.
