@@ -19,8 +19,7 @@ exports.handler = async (event, context, callback) => {
     body: JSON.stringify({
       message: 'Payload registered!',
       payload: event.body,
-      sqsMessageId,
-      joke: 'Imagina você lá na igreja do padre Tito... você ajoelhado e o padre Tito orando.'
+      sqsMessageId
     }),
   };
   
