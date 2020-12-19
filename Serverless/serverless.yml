@@ -1,5 +1,11 @@
-service: aws-nodejs-sqs
+service: cloud-serverless-trab
 
+custom:
+  #colocar o parametro de retorno do terraform "serverless-stage"
+  stage: 'dev'
+  #colocar o parametro de retorno do terraform "serverless-userId"
+  userId: '085297972612'
+  
 provider:
   name: aws
   runtime: nodejs10.x
@@ -15,6 +21,15 @@ provider:
        - sqs:DeleteMessage
        - sqs:ReceiveMessage
        - sqs:SendMessage
+       - SNS:GetTopicAttributes
+       - SNS:SetTopicAttributes
+       - SNS:AddPermission
+       - SNS:RemovePermission
+       - SNS:DeleteTopic
+       - SNS:Subscribe
+       - SNS:ListSubscriptionsByTopic
+       - SNS:Publish
+       - SNS:Receive
       Resource:
        - "*"
 
@@ -23,7 +38,7 @@ functions:
     handler: src/insert.handler
     environment:
       #URL DA FILA PRINCIPAL
-      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/085297972612/SQS-principal-default'
+      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/${self:custom.userId}/SQS-principal-${self:custom.stage}'
     events:
       - http:
           path: insertsqs
@@ -33,11 +48,11 @@ functions:
     handler: src/receive.handler
     environment:
       #URL DA FILA DLQ
-      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/085297972612/SQS-principal-default-dlq'
+      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/${self:custom.userId}/SQS-principal-${self:custom.stage}-dlq'
     events:
       - sqs:
           #ARN DA FILA PRINCIPAL
-          arn: arn:aws:sqs:us-east-1:085297972612:SQS-principal-default 
+          arn: 'arn:aws:sqs:us-east-1:${self:custom.userId}:SQS-principal-${self:custom.stage}'
           batchSize: 10
           maximumBatchingWindow: 60
           
@@ -45,10 +60,10 @@ functions:
     handler: src/publish.handler
     environment:
       #ARN DO SNS
-      snsArn: 'arn:aws:sns:us-east-1:085297972612:SNS-deadletters-notifyer-default' 
+      snsArn: 'arn:aws:sns:us-east-1:${self:custom.userId}:SNS-deadletters-notifyer-${self:custom.stage}' 
     events:
       - sqs:
           #ARN DA FILA DLQ
-          arn: arn:aws:sqs:us-east-1:085297972612:SQS-principal-default-dlq 
+          arn: 'arn:aws:sqs:us-east-1:${self:custom.userId}:SQS-principal-${self:custom.stage}-dlq'
           batchSize: 10
           maximumBatchingWindow: 60

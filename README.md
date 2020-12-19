@@ -22,26 +22,33 @@ Navegue pelo terminal até a pasta `Infra` e execute os comando `terraform init`
 ### Construindo o Serverless
 
 Navegue pelo terminal até a pasta `Serverless` e 
-Configure no arquivo serverless.yml nas sessões enviroment os outputs gerados pelo terraform
-  * functions > insert > enviroment > sqsUrl (url do sqs default)
-  * functions > receiver > enviroment > sqsUrl (url do sqs dlq)
-  * functions > receiver > events > sqs > arn (arn do sqs default)
-  * functions > publish > enviroment > snsArn (arn do sns) 
-  * functions > publish > events > sqs > arn (arn do sqs dlq)
+Configure no arquivo serverless.yml na sessão custom os outputs gerados pelo terraform
+Exemplo:
+```
+custom
+  stage: 'dev'
+  userId: '085297972612'
+```
 
 execute o commando `sls deploy` 
 
 ### Postando uma mensagem no lambda insert
 
 Com a url retornada após o deploy
-Em qualquer ferramenta de requisições HTTP utilize [POST] em https://{url}/insertsqs
+Em qualquer ferramenta de requisições HTTP utilize [POST] em https://${url}/insertsqs
 Mande um body em json 
 
 ### Postando uma mensagem no lambda para ir ao DLQ
 
-No serviço receiver, force uma exception
+No serviço receiver, force uma exception e depois refaça o deploy
+`sls deploy`
 A mesagem que seria lida e excluída será enviada para a DLQ.
-Após modificar o arquivo execute `sls deploy`
+
+### DLQ > SNS
+
+As mensagens que caem na DLQ são automáticamente enviadas para as subscrições do sns
+(obs. Subscrições para e-mail via terraform, de acordo com a documentação do terraform, não funciona. 
+Fazer subscrição manualmente.)
 
 ## Requisitos do projeto
 
